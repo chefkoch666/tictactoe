@@ -1,8 +1,8 @@
 package tictactoe;
 
 public interface Board {
-	Object listMoves();
-	void makeMove();
+	String listMoves();
+	void makeMove(int move);
 	void undoMove();
 	void threeInARow();
 }
