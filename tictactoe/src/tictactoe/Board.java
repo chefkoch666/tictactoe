@@ -4,5 +4,5 @@ public interface Board {
 	String listMoves();
 	void makeMove(int move);
 	void undoMove();
-	void threeInARow();
+	void checkThreeInARow();
 }
