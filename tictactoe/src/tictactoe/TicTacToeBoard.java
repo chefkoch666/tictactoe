@@ -156,13 +156,12 @@ public class TicTacToeBoard implements Board {
     final TicTacToeBoard gameBoard = new TicTacToeBoard();
     System.out.println("Wir starten mit einem leeren Board. x beginnt.");
     // x wins horizontal in first line
-    // b.makeMove(0);
-    // b.makeMove(3);
-    // b.makeMove(1);
-    // b.makeMove(4);
-    // b.makeMove(2);
-    // b.checkThreeInARow();
-    // b.makeMove(5);
+     gameBoard.makeMove(0);
+     gameBoard.makeMove(3);
+     gameBoard.makeMove(1);
+     gameBoard.makeMove(4);
+     gameBoard.makeMove(2);
+     gameBoard.makeMove(5);
 
     // x wins vertical in first column
     gameBoard.makeMove(0);
@@ -204,7 +203,7 @@ public class TicTacToeBoard implements Board {
 //    gameBoard.makeMove(5);
 //    gameBoard.makeMove(6);
 //    gameBoard.makeMove(0);
-
+     
     // look at result board
     System.out.println(gameBoard.toString());
     /*
