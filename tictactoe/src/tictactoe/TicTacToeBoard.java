@@ -24,10 +24,24 @@ import java.util.List;
 
 public class TicTacToeBoard implements Board {
 
+  /**
+   * One dimensional presentation of the game board.
+   */
   private int[] board = {0, 0, 0, 0, 0, 0, 0, 0, 0};
+  
+  /**
+   * Saves the moves of all players.
+   */
   private final List<Integer> moves = new ArrayList<Integer>(0);
+  
+  /**
+   * Toggles whose turn it is. 
+   */
   private int turn = +1;
   
+  /**
+   * Proper logging to avoid System.out.println()
+   */
   private static final Logger LOG = LogManager.getLogger(TicTacToeBoard.class 
       .getName());
 
@@ -39,15 +53,15 @@ public class TicTacToeBoard implements Board {
    * @param position to get representation of on the gameBoard
    * @return the representation's char
    */
-  public char getRepresentation(int position) {
-    char ret = '0';
+  public char getRepresentation(final int position) {
+    char representation = '0';
     if (position == -1) {
-      ret = 'o';
+      representation = 'o';
     }
     if (position == +1) {
-      ret = 'x';
+      representation = 'x';
     }
-    return ret;
+    return representation;
   }
 
   public String toString() {
@@ -64,9 +78,9 @@ public class TicTacToeBoard implements Board {
     return moves.toString();
   }
 
-  public void makeMove(int move) {
-    moves.add(move);
-    this.board[move] = turn;
+  public void makeMove(final int atPosition) {
+    moves.add(atPosition);
+    this.board[atPosition] = turn;
     turn = -turn;
   }
 
@@ -78,8 +92,8 @@ public class TicTacToeBoard implements Board {
     turn = -turn;
   }
 
-  public void checkForWinner(char theWinner) {
-    if (theWinner != ' ') {
+  public void checkForWinner(final char theWinner) {
+    if (Character.isWhitespace(theWinner)) {
       System.out.println("Houston, we have a winner! The winner is : " + theWinner);
     }
   }
@@ -152,16 +166,17 @@ public class TicTacToeBoard implements Board {
     return playerWon;
   }
 
-  public static void main(String[] args) {
+  public static void main(final String[] args) {
     final TicTacToeBoard gameBoard = new TicTacToeBoard();
     System.out.println("Wir starten mit einem leeren Board. x beginnt.");
+    LOG.error("x beginnt das Spiel.");
     // x wins horizontal in first line
-     gameBoard.makeMove(0);
-     gameBoard.makeMove(3);
-     gameBoard.makeMove(1);
-     gameBoard.makeMove(4);
-     gameBoard.makeMove(2);
-     gameBoard.makeMove(5);
+    gameBoard.makeMove(0);
+    gameBoard.makeMove(3);
+    gameBoard.makeMove(1);
+    gameBoard.makeMove(4);
+    gameBoard.makeMove(2);
+    gameBoard.makeMove(5);
 
     // x wins vertical in first column
     gameBoard.makeMove(0);
@@ -206,22 +221,6 @@ public class TicTacToeBoard implements Board {
      
     // look at result board
     System.out.println(gameBoard.toString());
-    /*
-     * System.out.print(gameBoard.toString()); System.out.println(gameBoard.listMoves());
-     * 
-     * System.out.println("Erster Zug auf Array index 2."); gameBoard.makeMove(2);
-     * System.out.print(gameBoard.toString()); System.out.println(gameBoard.listMoves());
-     * 
-     * System.out.println("Mache Zug rückgängig.");
-     * gameBoard.undoMove(); System.out.print(gameBoard.toString());
-     * System.out.println(gameBoard.listMoves());
-     * 
-     * System.out.println("Mache Zug auf Array index 0."); gameBoard.makeMove(0);
-     * System.out.print(gameBoard.toString()); System.out.println(gameBoard.listMoves());
-     * 
-     * System.out.println("Mache Zug auf Array index 4."); gameBoard.makeMove(4);
-     * System.out.print(gameBoard.toString()); System.out.println(gameBoard.listMoves());
-     */
-  }
+  } // end public static void main() 
 
-}
+} // end class TicTacToeBoard
