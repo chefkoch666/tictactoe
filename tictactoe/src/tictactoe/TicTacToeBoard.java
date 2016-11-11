@@ -7,8 +7,8 @@
  * [Other notes, including guaranteed invariants, usage instructions and/or examples, reminders
  *  about desired improvements, etc.]
  *  
- *  @author <A HREF="mailto:[koch@physik.uni-kiel.de]">[Marek Koch]</A>
- *  @version $Revision: 1.0 $ $Date: 2016/11/02 09:36:00 $
+ *  @author <A HREF="mailto:[marek.koch@stud.fh-luebeck.de]">[Marek Koch]</A>
+ *  @version $Revision: 1.1 $ $Date: 2016/11/11 10:04 $
  *  @see [String]
  *  @see [URL]
  *  @see [TicTacToeBoard]
@@ -27,17 +27,18 @@ public class TicTacToeBoard implements Board {
   /**
    * One dimensional presentation of the game board.
    */
-  private int[] board = {0, 0, 0, 0, 0, 0, 0, 0, 0};
+  // package access
+  static int[] board;
   
   /**
    * Saves the moves of all players.
    */
-  private final List<Integer> moves = new ArrayList<Integer>(0);
+  private static final List<Integer> moves = new ArrayList<Integer>(0);
   
   /**
    * Toggles whose turn it is. 
    */
-  private int turn = +1;
+  private static int turn;
   
   /**
    * Proper logging to avoid System.out.println()
@@ -45,7 +46,15 @@ public class TicTacToeBoard implements Board {
   private static final Logger LOG = LogManager.getLogger(TicTacToeBoard.class 
       .getName());
 
-  public TicTacToeBoard() {}
+  /**
+   * Initialize a new game.
+   */
+  public void init() {
+    board = new int[] {0, 0, 0, 0, 0, 0, 0, 0, 0};
+    turn = +1;
+    moves.clear();
+    LOG.info("x beginnt das Spiel.");
+  }
 
   /**
    * Get representation at a specific position on the gameBoard.
@@ -64,40 +73,66 @@ public class TicTacToeBoard implements Board {
     return representation;
   }
 
+  /**
+   * Prints board in a human readable way.
+   *
+   * @return board's human readable representation
+   */
+  @Override
   public String toString() {
-    final StringBuffer str = new StringBuffer("");
+    final StringBuffer outputBoard = new StringBuffer("\n");
     for (int i = 0; i <= 6; i += 3) {
-      str.append("[" + this.getRepresentation(this.board[i]) + " "
-          + this.getRepresentation(this.board[i + 1]) + " "
-          + this.getRepresentation(this.board[i + 2]) + "]\n");
+      outputBoard.append("[" + this.getRepresentation(board[i]) + " "
+          + this.getRepresentation(board[i + 1]) + " "
+          + this.getRepresentation(board[i + 2]) + "]\n");
     }
-    return str.toString();
+    return outputBoard.toString();
   }
 
+  /**
+   * Lists moves on board made so far.
+   *
+   * @return moves on board
+   */
   public String listMoves() {
     return moves.toString();
   }
 
+  /**
+   * Make move atPosition on board.
+   *
+   * @param atPosition Mark position on board.
+   */
   public void makeMove(final int atPosition) {
     moves.add(atPosition);
-    this.board[atPosition] = turn;
+    board[atPosition] = turn;
     turn = -turn;
   }
 
+  /**
+   * Undo last move.
+   */
   public void undoMove() {
-    System.out
-        .println("undoMove: Value moves.get(moves.size()-1) is : " + moves.get(moves.size() - 1));
-    this.board[moves.get(moves.size() - 1)] = 0;
+    LOG.info("undoMove: Value moves.get(moves.size()-1) is : " + moves.get(moves.size() - 1));
+    board[moves.get(moves.size() - 1)] = 0;
     moves.remove(moves.size() - 1);
     turn = -turn;
   }
 
+  /**
+   * Checks for a winner.
+   *
+   * @param theWinner Check if this player is the winner.
+   */
   public void checkForWinner(final char theWinner) {
-    if (Character.isWhitespace(theWinner)) {
-      System.out.println("Houston, we have a winner! The winner is : " + theWinner);
+    if (Character.isLetter(theWinner)) {
+      LOG.info("The winner is : " + theWinner);
     }
   }
 
+  /**
+   * Checks for three in a row.
+   */
   public void checkThreeInARow() {
     char theWinner = ' ';
     theWinner = checkHorizontally();
@@ -108,35 +143,45 @@ public class TicTacToeBoard implements Board {
     checkForWinner(theWinner);
   }
 
+  /**
+   * Checks for three in a row horizontally.
+   * 
+   * @return playerWon contains player symbol who has won. 
+   */
   public char checkHorizontally() {
     char playerWon = ' ';
     for (int i = 0; i < board.length; i += 3) {
-      if (this.getRepresentation(this.board[i]) == 'o'
-          && this.getRepresentation(this.board[i + 1]) == 'o'
-          && this.getRepresentation(this.board[i + 2]) == 'o') {
+      if (this.getRepresentation(board[i]) == 'o'
+          && this.getRepresentation(board[i + 1]) == 'o'
+          && this.getRepresentation(board[i + 2]) == 'o') {
         playerWon = 'o';
       }
-      if (this.getRepresentation(this.board[i]) == 'x'
-          && this.getRepresentation(this.board[i + 1]) == 'x'
-          && this.getRepresentation(this.board[i + 2]) == 'x') {
+      if (this.getRepresentation(board[i]) == 'x'
+          && this.getRepresentation(board[i + 1]) == 'x'
+          && this.getRepresentation(board[i + 2]) == 'x') {
         playerWon = 'x';
       }
     } // end for
 
     return playerWon;
   }
-
+  
+  /**
+   * Checks for three in a row vertically.
+   * 
+   * @return playerWon contains player symbol who has won. 
+   */
   public char checkVertically() {
     char playerWon = ' ';
     for (int i = 0; i < board.length - 6; i++) {
-      if (this.getRepresentation(this.board[i]) == 'o'
-          && this.getRepresentation(this.board[i + 3]) == 'o'
-          && this.getRepresentation(this.board[i + 6]) == 'o') {
+      if (this.getRepresentation(board[i]) == 'o'
+          && this.getRepresentation(board[i + 3]) == 'o'
+          && this.getRepresentation(board[i + 6]) == 'o') {
         playerWon = 'o';
       }
-      if (this.getRepresentation(this.board[i]) == 'x'
+      if (this.getRepresentation(board[i]) == 'x'
           && this.getRepresentation(board[i + 3]) == 'x'
-          && this.getRepresentation(this.board[i + 6]) == 'x') {
+          && this.getRepresentation(board[i + 6]) == 'x') {
         playerWon = 'x';
       }
     } // end for
@@ -144,40 +189,52 @@ public class TicTacToeBoard implements Board {
     return playerWon;
   }
 
+  /**
+   * Checks for three in a row diagonally.
+   * 
+   * @return playerWon contains player symbol who has won. 
+   */
   public char checkDiagonally() {
     char playerWon = ' ';
-    if ((this.getRepresentation(this.board[0]) == 'o')
-        && (this.getRepresentation(this.board[4]) == 'o')
-        && (this.getRepresentation(this.board[8]) == 'o')
-        || (this.getRepresentation(this.board[2]) == 'o')
-            && (this.getRepresentation(this.board[4]) == 'o')
-            && (this.getRepresentation(this.board[6]) == 'o')) {
+    if ((this.getRepresentation(board[0]) == 'o')
+        && (this.getRepresentation(board[4]) == 'o')
+        && (this.getRepresentation(board[8]) == 'o')
+        || (this.getRepresentation(board[2]) == 'o')
+            && (this.getRepresentation(board[4]) == 'o')
+            && (this.getRepresentation(board[6]) == 'o')) {
       playerWon = 'o';
     }
-    if ((this.getRepresentation(this.board[0]) == 'x')
-        && (this.getRepresentation(this.board[4]) == 'x')
-        && (this.getRepresentation(this.board[8]) == 'x')
-        || (this.getRepresentation(this.board[2]) == 'x')
-            && (this.getRepresentation(this.board[4]) == 'x')
-            && (this.getRepresentation(this.board[6]) == 'x')) {
+    if ((this.getRepresentation(board[0]) == 'x')
+        && (this.getRepresentation(board[4]) == 'x')
+        && (this.getRepresentation(board[8]) == 'x')
+        || (this.getRepresentation(board[2]) == 'x')
+            && (this.getRepresentation(board[4]) == 'x')
+            && (this.getRepresentation(board[6]) == 'x')) {
       playerWon = 'x';
     }
 
     return playerWon;
   }
 
+  /**
+   * Main program: Make/undo moves; Check for three in a row.
+   * 
+   * @param args Received on call/command line.
+   */
+  /*
   public static void main(final String[] args) {
     final TicTacToeBoard gameBoard = new TicTacToeBoard();
-    System.out.println("Wir starten mit einem leeren Board. x beginnt.");
-    LOG.error("x beginnt das Spiel.");
+    gameBoard.init();    
     // x wins horizontal in first line
     gameBoard.makeMove(0);
     gameBoard.makeMove(3);
     gameBoard.makeMove(1);
     gameBoard.makeMove(4);
     gameBoard.makeMove(2);
-    gameBoard.makeMove(5);
+    LOG.info(gameBoard.toString());
 
+    
+    gameBoard.init();
     // x wins vertical in first column
     gameBoard.makeMove(0);
     gameBoard.makeMove(4);
@@ -185,42 +242,10 @@ public class TicTacToeBoard implements Board {
     gameBoard.makeMove(5);
     gameBoard.makeMove(6);
     gameBoard.checkThreeInARow();
-    gameBoard.checkVertically();
-    
-		// o wins diagonal 1
-		//    gameBoard.makeMove(1);
-		//    gameBoard.makeMove(0);
-		//    gameBoard.makeMove(3);
-		//    gameBoard.makeMove(4);
-		//    gameBoard.makeMove(7);
-		//    gameBoard.makeMove(8);
-		    
-		// o wins diagonal 2
-		//    gameBoard.makeMove(1);
-		//    gameBoard.makeMove(2);
-		//    gameBoard.makeMove(3);
-		//    gameBoard.makeMove(4);
-		//    gameBoard.makeMove(7);
-		//    gameBoard.makeMove(6);
-		    
-		// x wins diagonal 1
-		//    gameBoard.makeMove(0);
-		//    gameBoard.makeMove(2);
-		//    gameBoard.makeMove(4);
-		//    gameBoard.makeMove(1);
-		//    gameBoard.makeMove(7);
-		//    gameBoard.makeMove(6);
-    
-    // x wins diagonal 2
-//    gameBoard.makeMove(2);
-//    gameBoard.makeMove(1);
-//    gameBoard.makeMove(4);
-//    gameBoard.makeMove(5);
-//    gameBoard.makeMove(6);
-//    gameBoard.makeMove(0);
-     
+ 
     // look at result board
-    System.out.println(gameBoard.toString());
+    LOG.info(gameBoard.toString());
   } // end public static void main() 
+  */
 
 } // end class TicTacToeBoard
