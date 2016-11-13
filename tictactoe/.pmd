@@ -215,7 +215,7 @@
         </rule>
         <rule>
             <name>CollapsibleIfStatements</name>
-            <ruleset>Basic Velocity</ruleset>
+            <ruleset>Basic</ruleset>
         </rule>
         <rule>
             <name>EmptyForeachStmt</name>
@@ -307,7 +307,7 @@
         </rule>
         <rule>
             <name>ExcessiveClassLength</name>
-            <ruleset>Code Size</ruleset>
+            <ruleset>Complexity</ruleset>
         </rule>
         <rule>
             <name>ExcessiveMethodLength</name>
@@ -339,7 +339,7 @@
         </rule>
         <rule>
             <name>ExcessivePublicCount</name>
-            <ruleset>Code Size</ruleset>
+            <ruleset>Complexity</ruleset>
         </rule>
         <rule>
             <name>ExcessiveTypeLength</name>
@@ -351,7 +351,7 @@
         </rule>
         <rule>
             <name>NcssConstructorCount</name>
-            <ruleset>Code Size</ruleset>
+            <ruleset>Complexity</ruleset>
         </rule>
         <rule>
             <name>NcssMethodCount</name>
@@ -367,7 +367,7 @@
         </rule>
         <rule>
             <name>NcssTypeCount</name>
-            <ruleset>Code Size</ruleset>
+            <ruleset>Complexity</ruleset>
         </rule>
         <rule>
             <name>NPathComplexity</name>
@@ -379,7 +379,7 @@
         </rule>
         <rule>
             <name>StdCyclomaticComplexity</name>
-            <ruleset>Code Size</ruleset>
+            <ruleset>Complexity</ruleset>
         </rule>
         <rule>
             <name>TooManyFields</name>
@@ -411,7 +411,7 @@
         </rule>
         <rule>
             <name>AvoidDeeplyNestedIfStmts</name>
-            <ruleset>Complexity</ruleset>
+            <ruleset>Basic Velocity</ruleset>
         </rule>
         <rule>
             <name>ExcessiveClassLength</name>
@@ -419,7 +419,7 @@
         </rule>
         <rule>
             <name>ExcessiveParameterList</name>
-            <ruleset>Complexity</ruleset>
+            <ruleset>Code Size</ruleset>
         </rule>
         <rule>
             <name>ExcessivePublicCount</name>
@@ -431,7 +431,7 @@
         </rule>
         <rule>
             <name>NcssMethodCount</name>
-            <ruleset>Complexity</ruleset>
+            <ruleset>Code Size</ruleset>
         </rule>
         <rule>
             <name>NcssTypeCount</name>
@@ -443,11 +443,11 @@
         </rule>
         <rule>
             <name>TooManyFields</name>
-            <ruleset>Complexity</ruleset>
+            <ruleset>Code Size</ruleset>
         </rule>
         <rule>
             <name>AssignmentInOperand</name>
-            <ruleset>Controversial</ruleset>
+            <ruleset>Basic Ecmascript</ruleset>
         </rule>
         <rule>
             <name>AtLeastOneConstructor</name>
@@ -575,7 +575,7 @@
         </rule>
         <rule>
             <name>AvoidDeeplyNestedIfStmts</name>
-            <ruleset>Design</ruleset>
+            <ruleset>Basic Velocity</ruleset>
         </rule>
         <rule>
             <name>AvoidInstanceofChecksInCatchClause</name>
@@ -591,7 +591,7 @@
         </rule>
         <rule>
             <name>AvoidReassigningParameters</name>
-            <ruleset>Design</ruleset>
+            <ruleset>Basic Velocity</ruleset>
         </rule>
         <rule>
             <name>AvoidSynchronizedAtMethodLevel</name>
@@ -791,7 +791,7 @@
         </rule>
         <rule>
             <name>EmptyIfStmt</name>
-            <ruleset>Empty Code</ruleset>
+            <ruleset>Basic Velocity</ruleset>
         </rule>
         <rule>
             <name>EmptyInitializer</name>
@@ -1339,19 +1339,19 @@
         </rule>
         <rule>
             <name>ClassNamingConventions</name>
-            <ruleset>Style</ruleset>
+            <ruleset>Naming</ruleset>
         </rule>
         <rule>
             <name>MethodNamingConventions</name>
-            <ruleset>Style</ruleset>
+            <ruleset>Naming</ruleset>
         </rule>
         <rule>
             <name>MethodWithSameNameAsEnclosingClass</name>
-            <ruleset>Style</ruleset>
+            <ruleset>Naming</ruleset>
         </rule>
         <rule>
             <name>VariableNamingConventions</name>
-            <ruleset>Style</ruleset>
+            <ruleset>Naming</ruleset>
         </rule>
         <rule>
             <name>TomKytesDespair</name>
@@ -1375,7 +1375,7 @@
         </rule>
         <rule>
             <name>UnnecessaryParentheses</name>
-            <ruleset>Unnecessary</ruleset>
+            <ruleset>Controversial</ruleset>
         </rule>
         <rule>
             <name>UnnecessaryReturn</name>

@@ -1,10 +1,10 @@
 /**
+ * Class Board
  * 
- * Board.java
- * Interface for a game board.
+ * <P>Interface for a game board behavior.</P>
  * 
  * @author <A HREF="mailto:[koch@physik.uni-kiel.de]">[Marek Koch]</A>
- * @version $Revision: 1.0 $ $Date: 2016/11/02 09:36:00 $
+ * @version $Revision: 1.1 $ $Date: 2016/11/13 13:29 $
  */
 
 package tictactoe;
