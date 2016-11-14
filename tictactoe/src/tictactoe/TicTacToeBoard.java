@@ -99,8 +99,7 @@ public class TicTacToeBoard implements Board {
    * Undo the last move.
    */
   public void undoMove() {
-    System.out
-        .println("undoMove: Value moves.get(moves.size()-1) is : " + moves.get(moves.size() - 1));
+    LOG.info("undoMove: Value moves.get(moves.size()-1) is : " + moves.get(moves.size() - 1));
     this.board[moves.get(moves.size() - 1)] = 0;
     moves.remove(moves.size() - 1);
     turn = -turn;
