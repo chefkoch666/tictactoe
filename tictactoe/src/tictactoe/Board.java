@@ -1,14 +1,13 @@
+package tictactoe;
+
 /**
  * Class Board
  * 
  * <P>Interface for a game board behavior.</P>
  * 
- * @author <A HREF="mailto:[koch@physik.uni-kiel.de]">[Marek Koch]</A>
- * @version $Revision: 1.1 $ $Date: 2016/11/13 13:29 $
+ * @author <A HREF="mailto:[marek.koch@stud.fh-luebeck.de]">[Marek Koch]</A>
+ * @version $Revision: 1.2 $ $Date: 2016/11/15 21:55 $
  */
-
-package tictactoe;
-
 public interface Board {
   /**
    * List all moves of the Board made so far.
@@ -29,6 +28,7 @@ public interface Board {
 
   /**
    * Check for winning/draw situation after a move.
+   * @return True if one player has won.
    */
   boolean checkThreeInARow();
 }

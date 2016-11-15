@@ -1,42 +1,56 @@
-<project xmlns:ivy="antlib:org.apache.ivy.ant" name="tictactoe" default="jar">
- 
-    <property name="src.dir" value="src"/>
-    <property name="build.dir" value="build-ant"/>
-    <property name="classes.dir" value="${build.dir}/classes"/>
-    <property name="jar.dir" value="${build.dir}/jar"/>
+<project xmlns:ivy="antlib:org.apache.ivy.ant" name="tictactoe" default="main">
+
+	<property name="src.dir" value="src"/>
+	<property name="build.dir" value="build-ant"/>
+	<property name="classes.dir" value="${build.dir}/classes"/>
+	<property name="jar.dir" value="${build.dir}/jar"/>
 	<property name="doc.dir" location="${build.dir}/doc"/>
-    <property name="lib.dir" value="lib" />
-    <path id="lib.path.id">
-        <fileset dir="${lib.dir}" />
-    </path>
- 
-	
+	<property name="lib.dir" value="lib" />
+	<path id="lib.path.id">
+		<fileset dir="${lib.dir}" />
+	</path>
+
+
 	<target name="bootstrap" description="Used to install the ivy task jar">
 		<echo>Hello World!</echo>
-	    <mkdir dir="${user.home}/.ant/lib"/>
-	    <get dest="${user.home}/.ant/lib/ivy.jar" src="http://search.maven.org/remotecontent?filepath=org/apache/ivy/ivy/2.4.0/ivy-2.4.0.jar"/>
+		<mkdir dir="${user.home}/.ant/lib"/>
+		<get dest="${user.home}/.ant/lib/ivy.jar" src="http://search.maven.org/remotecontent?filepath=org/apache/ivy/ivy/2.4.0/ivy-2.4.0.jar"/>
 	</target>
- 
-    <target name="clean" description="tidy up the workspace">
-        <delete dir="${build.dir}"/>
-    </target>
-	
-    <target name="resolve" description="--> retrieve dependencies with ivy">
-        <ivy:retrieve />
-    </target>
-	
+
+	<target name="clean" description="tidy up the workspace">
+		<delete dir="${build.dir}"/>
+	</target>
+
+	<target name="resolve" description="--> retrieve dependencies with ivy">
+		<ivy:retrieve />
+	</target>
+
 	<target name="doc" depends="resolve" description="generate documentation">
-	  <javadoc sourcepath="${src.dir}" destdir="${doc.dir}"/>
+		<javadoc
+			author="true" version="true" use="true"
+			sourcepath="${src.dir}"
+			destdir="${doc.dir}"
+			classpathref="lib.path.id"
+			access="private"
+			linksource="true">
+		  <link href="https://docs.oracle.com/javase/8/docs/api/"/>      
+		</javadoc>
 	</target>
- 
+
 	<target name="compile" depends="doc" description="compile java sources">
-        <mkdir dir="${classes.dir}"/>
-        <javac srcdir="${src.dir}" destdir="${classes.dir}" classpathref="lib.path.id"/>
-    </target>
- 
-    <target name="jar" depends="compile">
-        <mkdir dir="${jar.dir}"/>
-        <jar destfile="${jar.dir}/${ant.project.name}.jar" basedir="${classes.dir}"/>
-    </target>
- 
+		<mkdir dir="${classes.dir}"/>
+		<!-- includeantruntime see https://ant.apache.org/manual/Tasks/javac.html -->
+		<javac srcdir="${src.dir}" destdir="${classes.dir}" classpathref="lib.path.id" includeantruntime="false"/>
+	</target>
+
+	<target name="jar" depends="compile">
+		<mkdir dir="${jar.dir}"/>
+		<jar destfile="${jar.dir}/${ant.project.name}.jar" basedir="${classes.dir}"/>
+	</target>
+
+	<target name="main" depends="jar">
+		<description>Main target</description>
+	</target>
+	<!-- TODO findbugs, checkstyle, pmd -->
+	
 </project>

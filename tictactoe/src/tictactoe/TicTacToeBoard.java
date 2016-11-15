@@ -1,3 +1,11 @@
+package tictactoe;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Class TicTacToeBoard
  * 
@@ -7,21 +15,9 @@
  * <P>[Other notes, including guaranteed invariants, usage instructions and/or examples, reminders
  *  about desired improvements, etc.]</P>
  *  
- *  @author <A HREF="mailto:[koch@physik.uni-kiel.de]">[Marek Koch]</A>
- *  @version $Revision: 1.1 $ $Date: 2016/11/13 13:29 $
- *  @see [String]
- *  @see [URL]
- *  @see [TicTacToeBoard]
+ *  @author <A HREF="mailto:[marek.koch@stud.fh-luebeck.de]">[Marek Koch]</A>
+ *  @version $Revision: 1.2 $ $Date: 2016/11/15 21:55 $
  */
-
-package tictactoe;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
-import java.util.ArrayList;
-import java.util.List;
-
 public class TicTacToeBoard implements Board {
 
   /**
@@ -107,9 +103,10 @@ public class TicTacToeBoard implements Board {
 
   /**
    * Checks for three in a row.
+   * @return True if one player has won.
    */
   public boolean checkThreeInARow() {
-    return (checkHorizontally() || checkVertically() || checkDiagonally());
+    return checkHorizontally() || checkVertically() || checkDiagonally();
   }
   
   /**
