@@ -35,9 +35,9 @@ public class TicTacToeBoard implements Board {
   private final List<Integer> moves = new ArrayList<Integer>(0);
   
   /**
-   * Toggles whose turn it is. 
+   * Toggles whose turn it is. Value of +1 represents player x and -1 player o.
    */
-  private int turn = +1;
+  private static int turn = +1;
   
   /**
    * Proper logging to avoid System.out.println()
@@ -99,103 +99,58 @@ public class TicTacToeBoard implements Board {
    * Undo the last move.
    */
   public void undoMove() {
-    LOG.info("undoMove: Value moves.get(moves.size()-1) is : " + moves.get(moves.size() - 1));
+    LOG.debug("undoMove: Value moves.get(moves.size()-1) is : " + moves.get(moves.size() - 1));
     this.board[moves.get(moves.size() - 1)] = 0;
     moves.remove(moves.size() - 1);
     turn = -turn;
   }
 
   /**
-   * Outputs the winner's symbol (x or o).
-   * @param theWinner output the winner's symbol x or o.
-   */
-  public void checkForWinner(final char theWinner) {
-    if (Character.isLetter(theWinner)) {
-      LOG.info("Game over. The winner is : " + theWinner);
-    }
-  }
-
-  /**
    * Checks for three in a row.
    */
-  public void checkThreeInARow() {
-    char theWinner = ' ';
-    theWinner = checkHorizontally();
-    checkForWinner(theWinner);
-    theWinner = checkVertically();
-    checkForWinner(theWinner);
-    theWinner = checkDiagonally();
-    checkForWinner(theWinner);
+  public boolean checkThreeInARow() {
+    return (checkHorizontally() || checkVertically() || checkDiagonally());
   }
-
+  
   /**
    * Checks for a Winner horizontally.
-   * @return playerWon contains the symbol of the player who has won.
+   * @return True if a player has won horizontally.
    */
-  public char checkHorizontally() {
-    char playerWon = ' ';
+  public boolean checkHorizontally() {
     for (int i = 0; i < board.length; i += 3) {
-      if (this.getRepresentation(this.board[i]) == 'o'
-          && this.getRepresentation(this.board[i + 1]) == 'o'
-          && this.getRepresentation(this.board[i + 2]) == 'o') {
-        playerWon = 'o';
-      }
-      if (this.getRepresentation(this.board[i]) == 'x'
-          && this.getRepresentation(this.board[i + 1]) == 'x'
-          && this.getRepresentation(this.board[i + 2]) == 'x') {
-        playerWon = 'x';
-      }
+      if (this.board[i] == this.board[i + 1] && this.board[i] == this.board[i + 2]) {
+        return true;
+      } // end if
     } // end for
-
-    return playerWon;
+    
+    return false;
   }
 
   /**
    * Checks for a Winner vertically.
-   * @return playerWon contains the symbol of the player who has won.
+   * @return True if a player has won vertically.
    */
-  public char checkVertically() {
-    char playerWon = ' ';
+  public boolean checkVertically() {
     for (int i = 0; i < board.length - 6; i++) {
-      if (this.getRepresentation(this.board[i]) == 'o'
-          && this.getRepresentation(this.board[i + 3]) == 'o'
-          && this.getRepresentation(this.board[i + 6]) == 'o') {
-        playerWon = 'o';
-      }
-      if (this.getRepresentation(this.board[i]) == 'x'
-          && this.getRepresentation(board[i + 3]) == 'x'
-          && this.getRepresentation(this.board[i + 6]) == 'x') {
-        playerWon = 'x';
-      }
+      if (this.board[i] == this.board[i + 3] && this.board[i] == this.board[i + 6]) {
+        return true;
+      } // end if
     } // end for
 
-    return playerWon;
+    return false;
   }
 
   /**
    * Checks for a Winner diagonally.
-   * @return playerWon contains the symbol of the player who has won.
+   * @return True if a player has won diagonally.
    */
-  public char checkDiagonally() {
-    char playerWon = ' ';
-    if ((this.getRepresentation(this.board[0]) == 'o')
-        && (this.getRepresentation(this.board[4]) == 'o')
-        && (this.getRepresentation(this.board[8]) == 'o')
-        || (this.getRepresentation(this.board[2]) == 'o')
-            && (this.getRepresentation(this.board[4]) == 'o')
-            && (this.getRepresentation(this.board[6]) == 'o')) {
-      playerWon = 'o';
-    }
-    if ((this.getRepresentation(this.board[0]) == 'x')
-        && (this.getRepresentation(this.board[4]) == 'x')
-        && (this.getRepresentation(this.board[8]) == 'x')
-        || (this.getRepresentation(this.board[2]) == 'x')
-            && (this.getRepresentation(this.board[4]) == 'x')
-            && (this.getRepresentation(this.board[6]) == 'x')) {
-      playerWon = 'x';
+  public boolean checkDiagonally() {
+    if (this.board[0] == this.board[4] && this.board[0] == this.board[8]
+        || this.board[2] == this.board[4] && this.board[2] == this.board[6]) {
+      return true;
     }
 
-    return playerWon;
+    return false;
   }
 
   /**
@@ -204,17 +159,19 @@ public class TicTacToeBoard implements Board {
    */
   public static void main(final String[] args) {
     final TicTacToeBoard gameBoard = new TicTacToeBoard();
-    LOG.info("x beginnt das Spiel.");
-    // x wins horizontal in first line
+    LOG.info("Spieler x beginnt.");
+    // o wins diagonally
     gameBoard.makeMove(0);
-    gameBoard.makeMove(3);
+    gameBoard.makeMove(6);
     gameBoard.makeMove(1);
     gameBoard.makeMove(4);
+    gameBoard.makeMove(3);
     gameBoard.makeMove(2);
-    gameBoard.checkThreeInARow();
     
-    // look at result board
-    LOG.info(gameBoard.toString());
+    if (gameBoard.checkThreeInARow()) {
+      LOG.info(gameBoard.toString());
+      LOG.info(gameBoard.getRepresentation(-turn) + " hat das Spiel gewonnen.");
+    }
   } // end public static void main() 
 
 } // end class TicTacToeBoard

@@ -30,5 +30,5 @@ public interface Board {
   /**
    * Check for winning/draw situation after a move.
    */
-  void checkThreeInARow();
+  boolean checkThreeInARow();
 }

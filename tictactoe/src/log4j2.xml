@@ -5,10 +5,18 @@
       <!-- <PatternLayout pattern="%d{HH:mm:ss} [%t] %-5level %logger{36} - %msg%n"/>  -->
       <PatternLayout pattern="%d{HH:mm:ss} [%t] - %msg%n"/>
     </Console>
+    <Console name="FLOW" target="SYSTEM_OUT">
+      <PatternLayout pattern="%C{1}.%M %m %ex%n" />
+    </Console>
   </Appenders>
   <Loggers>
-    <Root level="info">
-      <AppenderRef ref="Console"/>
+    <Logger name="tictactoe.log4j2" level="info" additivity="false">
+      <appender-ref ref="Console" level="info"/>
+    </Logger>
+    <Root level="info" additivity="false">
+      <AppenderRef ref="Console" level="info"/>
+      <!-- Use FLOW to trace down exact method sending the msg -->
+      <!-- <AppenderRef ref="FLOW" /> -->
     </Root>
   </Loggers>
 </Configuration>
