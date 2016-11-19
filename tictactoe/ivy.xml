@@ -4,5 +4,6 @@
 	<dependencies>
 	  <dependency org="org.apache.logging.log4j" name="log4j-api" rev="2.7" />
 	  <dependency org="org.apache.logging.log4j" name="log4j-core" rev="2.7" />
+	  <dependency org="com.puppycrawl.tools" name="checkstyle" rev="7.2" />
 	</dependencies>
 </ivy-module>

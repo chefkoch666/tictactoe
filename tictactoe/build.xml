@@ -5,6 +5,7 @@
 	<property name="classes.dir" value="${build.dir}/classes"/>
 	<property name="jar.dir" value="${build.dir}/jar"/>
 	<property name="doc.dir" location="${build.dir}/doc"/>
+	<property name="report.dir" location="${build.dir}/reports"/>
 	<property name="lib.dir" value="lib" />
 	<path id="lib.path.id">
 		<fileset dir="${lib.dir}" />
@@ -12,7 +13,6 @@
 
 
 	<target name="bootstrap" description="Used to install the ivy task jar">
-		<echo>Hello World!</echo>
 		<mkdir dir="${user.home}/.ant/lib"/>
 		<get dest="${user.home}/.ant/lib/ivy.jar" src="http://search.maven.org/remotecontent?filepath=org/apache/ivy/ivy/2.4.0/ivy-2.4.0.jar"/>
 	</target>
@@ -24,8 +24,27 @@
 	<target name="resolve" description="--> retrieve dependencies with ivy">
 		<ivy:retrieve />
 	</target>
+	
+	<target name="checkstyle"
+	        description="Generates a report of code convention violations."
+		depends="init-checkstyle">
+	  <!-- See http://checkstyle.sourceforge.net/anttask.html for full options of using checkstyle with ant-->
+	  <checkstyle config="config/checkstyle/checkstyle.xml"
+	              failureProperty="checkstyle.failure"
+	              failOnViolation="false">
+	  	<formatter type="plain"/>
+	    <fileset dir="src" includes="**/*.java"/>
+	  </checkstyle>
+	</target>
 
-	<target name="doc" depends="resolve" description="generate documentation">
+	<target name="init-checkstyle" depends="resolve">
+		<path id="checkstyle.lib.path">
+	            <fileset dir="lib" includes="*.jar"/>
+		</path>
+		<taskdef resource="com/puppycrawl/tools/checkstyle/ant/checkstyle-ant-task.properties" classpathref="checkstyle.lib.path"/>
+	</target>
+
+	<target name="doc" depends="resolve, checkstyle" description="generate documentation">
 		<javadoc
 			author="true" version="true" use="true"
 			sourcepath="${src.dir}"
@@ -51,6 +70,5 @@
 	<target name="main" depends="jar">
 		<description>Main target</description>
 	</target>
-	<!-- TODO findbugs, checkstyle, pmd -->
 	
 </project>
