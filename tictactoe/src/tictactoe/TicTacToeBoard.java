@@ -115,7 +115,8 @@ public class TicTacToeBoard implements Board {
    */
   public boolean checkHorizontally() {
     for (int i = 0; i < board.length; i += 3) {
-      if (this.board[i] == this.board[i + 1] && this.board[i] == this.board[i + 2]) {
+      if (this.board[i] != 0 && this.board[i] == this.board[i + 1]
+          && this.board[i] == this.board[i + 2]) {
         return true;
       } // end if
     } // end for
@@ -125,11 +126,13 @@ public class TicTacToeBoard implements Board {
 
   /**
    * Checks for a Winner vertically.
+   * 
    * @return True if a player has won vertically.
    */
   public boolean checkVertically() {
     for (int i = 0; i < board.length - 6; i++) {
-      if (this.board[i] == this.board[i + 3] && this.board[i] == this.board[i + 6]) {
+      if (this.board[i] != 0 && this.board[i] == this.board[i + 3]
+          && this.board[i] == this.board[i + 6]) {
         return true;
       } // end if
     } // end for
@@ -142,8 +145,8 @@ public class TicTacToeBoard implements Board {
    * @return True if a player has won diagonally.
    */
   public boolean checkDiagonally() {
-    if (this.board[0] == this.board[4] && this.board[0] == this.board[8]
-        || this.board[2] == this.board[4] && this.board[2] == this.board[6]) {
+    if (this.board[0] != 0 && this.board[0] == this.board[4] && this.board[0] == this.board[8]
+        || this.board[2] != 0 && this.board[2] == this.board[4] && this.board[2] == this.board[6]) {
       return true;
     }
 
@@ -156,11 +159,14 @@ public class TicTacToeBoard implements Board {
    */
   public static void main(final String[] args) {
     final TicTacToeBoard gameBoard = new TicTacToeBoard();
+    LOG.info(gameBoard.moves.size());
+    LOG.info(gameBoard.listMoves().length());
     LOG.info("Spieler x beginnt.");
     // o wins diagonally
     gameBoard.makeMove(0);
     gameBoard.makeMove(6);
     gameBoard.makeMove(1);
+    LOG.info(gameBoard.moves.size());
     gameBoard.makeMove(4);
     gameBoard.makeMove(3);
     gameBoard.makeMove(2);
