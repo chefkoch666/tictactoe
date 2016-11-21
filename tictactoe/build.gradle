@@ -17,6 +17,11 @@ targetCompatibility = 1.8
 
 sourceSets {
   main.java.srcDir "src/tictactoe"
+  test {
+    java {
+      srcDirs = ["test"]
+    }
+  }
 }
 
 repositories {
@@ -25,6 +30,7 @@ repositories {
 }
 
 dependencies {
+  testCompile 'junit:junit:4.12'
   compile group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.7'
   compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.7'
 }

@@ -33,16 +33,17 @@ public class TicTacToeBoardTest {
   
   @Test
   public void testmakeMove() {
-    assertEquals(3, tester.listMoves().length());
+    final int lengthBefore = tester.listMoves().length();    
     tester.makeMove(0);
-    assertEquals(6, tester.listMoves().length());
+    final int lengthAfter = tester.listMoves().length();
+    assertTrue(lengthBefore < lengthAfter);
   }
   
   @Test
   public void testundoMove() { // ArrayIndexOutOfBoundsException can happen
-    int lengthBefore = tester.listMoves().length();
+    final int lengthBefore = tester.listMoves().length();
     tester.undoMove();
-    int lengthAfter = tester.listMoves().length();
+    final int lengthAfter = tester.listMoves().length();
     assertTrue(lengthBefore > lengthAfter);
   }
   
