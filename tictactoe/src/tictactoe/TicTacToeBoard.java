@@ -5,6 +5,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 /**
  * Class TicTacToeBoard
@@ -159,22 +160,19 @@ public class TicTacToeBoard implements Board {
    */
   public static void main(final String[] args) {
     final TicTacToeBoard gameBoard = new TicTacToeBoard();
-    LOG.info(gameBoard.moves.size());
-    LOG.info(gameBoard.listMoves().length());
-    LOG.info("Spieler x beginnt.");
-    // o wins diagonally
-    gameBoard.makeMove(0);
-    gameBoard.makeMove(6);
-    gameBoard.makeMove(1);
-    LOG.info(gameBoard.moves.size());
-    gameBoard.makeMove(4);
-    gameBoard.makeMove(3);
-    gameBoard.makeMove(2);
+    final Scanner inputPlayerMove = new Scanner(System.in);
     
-    if (gameBoard.checkThreeInARow()) {
-      LOG.info(gameBoard.toString());
-      LOG.info(gameBoard.getRepresentation(-turn) + " hat das Spiel gewonnen.");
-    }
+    do {
+      LOG.info("Player "
+                           + gameBoard.getRepresentation(turn)
+                           + ", enter your move [0-8]: ");
+      final int playerMove = inputPlayerMove.nextInt(); // could throw out of bounds exception
+      gameBoard.makeMove(playerMove);
+    } while (!gameBoard.checkThreeInARow());
+    
+    inputPlayerMove.close();
+    LOG.info(gameBoard.toString());
+    LOG.info(gameBoard.getRepresentation(-turn) + " hat das Spiel gewonnen.");
   } // end public static void main() 
 
 } // end class TicTacToeBoard
