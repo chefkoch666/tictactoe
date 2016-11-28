@@ -10,14 +10,14 @@ import java.util.Scanner;
 /**
  * Class TicTacToeBoard
  * 
- * <P>[Class description.  The first sentence should be a meaningful summary of the class since it
- *  will be displayed as the class summary on the Javadoc package page.]</P>
+ * <P>[Class description.  The class TicTacToeBoard lets two players play a console version
+ *  of the classic game TicTacToe (Three in a row).]</P>
  *  
  * <P>[Other notes, including guaranteed invariants, usage instructions and/or examples, reminders
  *  about desired improvements, etc.]</P>
  *  
  *  @author <A HREF="mailto:[marek.koch@stud.fh-luebeck.de]">[Marek Koch]</A>
- *  @version $Revision: 1.2 $ $Date: 2016/11/15 21:55 $
+ *  @version $Revision: 1.3 $ $Date: 2016/11/28 10:52 $
  */
 public class TicTacToeBoard implements Board {
 
