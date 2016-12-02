@@ -28,7 +28,6 @@ sourceSets {
 
 repositories {
   mavenCentral()
-  // jcenter()
 }
 
 dependencies {
@@ -45,15 +44,11 @@ checkstyle {
 
 findbugs {
   ignoreFailures = true
-  //toolVersion = "2.0.1"
-  //sourceSets = [sourceSets.main]
   effort = "max"
 }
 
 pmd {
   ignoreFailures = true
-  //sourceSets = [sourceSets.main]
-  //ruleSetFiles = files("${project.rootDir}/config/pmd/ruleSet.xml")
   ruleSets = [
     "java-basic",
     "java-braces",
