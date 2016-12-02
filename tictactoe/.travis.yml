@@ -2,4 +2,3 @@ language: java
 jdk:
   - openjdk7
   - openjdk8
-script: gradle check
