@@ -36,6 +36,7 @@ dependencies {
 }
 
 checkstyle {
+  ignoreFailures = true
   configFile = file("${project.rootDir}/config/checkstyle/checkstyle.xml")
   toolVersion = '6.14' // at least, because introduced CatchParameterName
 }
