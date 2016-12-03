@@ -5,6 +5,6 @@ jdk:
   - oraclejdk8
 before_install:
   - sudo apt-get update
-  - chmod +x gradlew
+  - chmod +x tictactoe/gradlew
 before_script: cd tictactoe
 script: gradle check --stacktrace
