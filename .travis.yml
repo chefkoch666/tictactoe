@@ -1,6 +1,10 @@
+sudo: required
+dist: trusty
 language: java
 jdk:
-  - openjdk7
-  - openjdk8
+  - oraclejdk8
+before_install:
+  - sudo apt-get update
+  - chmod +x gradlew
 before_script: cd tictactoe
-script: gradle check
+script: gradle check --stacktrace
